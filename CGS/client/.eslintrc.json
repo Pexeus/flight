@@ -1,0 +1,6 @@
+{
+    "rules": {
+      "eqeqeq": "off",
+      "react-hooks/exhaustive-deps": "off"
+    }
+  }
