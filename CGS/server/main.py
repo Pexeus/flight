@@ -7,6 +7,7 @@ import time
 from upstream import Upstream
 from converter import Converter
 from pymavlink import mavutil
+from video import VideoStream
 
 
 sio = socketio.Server(cors_allowed_origins="*")
@@ -15,6 +16,7 @@ app = socketio.WSGIApp(sio, static_files={})
 to = Converter()
 mav = Mav("0.0.0.0:14550")
 upstream = Upstream(mav.con, sio)
+videoStream = VideoStream(("0.0.0.0", 2000), sio)
 
 @sio.event
 def connect(sid, environ):
@@ -42,5 +44,4 @@ def rc_channels_override(sid, inputs):
 
 
 socketio.Server.start_background_task(self=sio, target=upstream.upstream)
-
 eventlet.wsgi.server(eventlet.listen(('', 5000)), app, log_output=False)
