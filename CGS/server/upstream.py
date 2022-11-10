@@ -14,5 +14,8 @@ class Upstream():
     def upstream(self):
         while True:
             packet = self.con.recv_match(blocking=True).to_dict()
-
+            
             self.socket.emit(packet["mavpackettype"], packet)
+
+            # DEBUG OR FEATURE? => check performance impact
+            self.socket.emit("*", packet)
