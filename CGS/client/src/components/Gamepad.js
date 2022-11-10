@@ -28,7 +28,6 @@ function Gamepad({ socket }) {
 
             if (JSON.stringify(values) != JSON.stringify(currentValues)) {
                 socket.emit("rc_channels_override", values)
-
                 currentValues = values
             }
     

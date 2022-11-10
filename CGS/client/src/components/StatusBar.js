@@ -1,10 +1,10 @@
 import React from 'react'
 import Gamepad from "./Gamepad"
 
-function StatusBar() {
+function StatusBar({socket}) {
     return (
         <div className='statusBar' style={{ backgroundColor: window.theme.palette.primary["main"] }}>
-            <Gamepad/>
+            <Gamepad socket={socket}/>
         </div>
     )
 }

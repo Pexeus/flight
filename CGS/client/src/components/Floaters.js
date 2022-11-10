@@ -1,10 +1,10 @@
 import React from 'react'
-import Map2d from "./Map2d"
+import Map3d from "./Map3d"
 
 function Floaters({socket}) {
   return (
     <div className='floaterContainer'>
-        
+        <Map3d socket={socket}/>
     </div>
   )
 }

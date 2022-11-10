@@ -3,20 +3,21 @@ import VideoPlayer from "./components/VideoPlayer";
 import StatusBar from "./components/StatusBar";
 import { createTheme } from '@mui/material/styles';
 import Floaters from "./components/Floaters"
+import Sidebar from "./components/Sidebar";
+import HUD from "./components/HUD"
+import Map3d from "./components/Map3d";
 
-window.mode = "rover"
+import {config} from "./config"
+
+window.mode = config.mode
 window.theme = createTheme({
   palette: {
-      mode: 'light'
+      mode: config.theme
   },
 });
 
 function init() {
-  connect("http://verion.ch:5000")
-
-  socket.on("event", data => {
-    console.log(data);
-  })
+  connect(config.host)
 }
 
 init()
@@ -25,9 +26,10 @@ function App() {
   return (
     <div className="app">
       <div className="mainWindow">
-        <VideoPlayer socket={socket}/>
+        <Map3d socket={socket}></Map3d>
+        <HUD socket={socket}></HUD>
+        <Sidebar socket={socket}/>
       </div>
-      <Floaters socket={socket}/>
       <StatusBar socket={socket}/>
     </div>
   );
