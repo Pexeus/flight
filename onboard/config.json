@@ -1,0 +1,12 @@
+{
+    "host_http": "http://verion.ch:5000",
+    "host_udp": "159.89.29.50:2000",
+    "host_mav": "159.89.29.50:14550",
+    "video": {
+        "fps": 30,
+        "width": 1280,
+        "height": 720,
+        "bitrate": 1000000,
+        "brightness": 66
+    }
+}
