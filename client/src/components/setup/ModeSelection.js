@@ -3,6 +3,7 @@ import {getMode} from "../../mav"
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import {config} from "../../config"
+import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 
 
@@ -10,6 +11,8 @@ import FormControl from '@mui/material/FormControl';
 function ModeSelection({socket}) {
     const modes = config[window.mode].modes
     const [mode, SetMode] = useState("")
+
+    socket.emit("request_message_stream", ["HEARTBEAT"])
 
     socket.on("HEARTBEAT", p => {
         const currentMode = getMode(p.custom_mode)
@@ -34,6 +37,7 @@ function ModeSelection({socket}) {
                         return <MenuItem value={mode} key={i}>{mode}</MenuItem>
                     })}
                 </Select>
+                <FormHelperText>Flight Mode</FormHelperText>
             </FormControl>
         </div>
     )

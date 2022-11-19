@@ -1,0 +1,8 @@
+{
+	"folders": [
+		{
+			"uri": "vscode-remote://ssh-remote+192.168.178.39/home/pi/code/GroundControl"
+		}
+	],
+	"settings": {}
+}

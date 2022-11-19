@@ -13,11 +13,6 @@ function Map3d({socket}) {
         startPos = await getGroundPos()
         const mapContainer = document.querySelector("#map")
 
-        //DIRTY ASS FIX
-        setInterval(() => {
-            socket.emit("set_message_interval", [24, 30])
-        }, 2000);
-
         //create map
         map = new mapboxgl.Map({
             container: 'map',
@@ -80,8 +75,6 @@ function Map3d({socket}) {
             const mapElement = document.querySelector("#map")
             camera.setPitchBearing(90 + pos.pitch, pos.yaw)
             camera.position = mapboxgl.MercatorCoordinate.fromLngLat([pos.lon, pos.lat], 200);
-
-            console.log(90 + pos.pitch);
 
             map.setFreeCameraOptions(camera);
             mapElement.style.transform = `rotate(${-pos.roll}deg)`

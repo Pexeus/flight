@@ -1,0 +1,9 @@
+{
+	"folders": [
+		{
+			"uri": "vscode-remote://ssh-remote+verion.ch/home/liam/code/GroundControl"
+		},
+	],
+	"remoteAuthority": "ssh-remote+verion.ch",
+	"settings": {}
+}
