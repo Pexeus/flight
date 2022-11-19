@@ -18,7 +18,10 @@
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.5.3",
     "stream-split": "^1.1.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xterm": "^5.0.0",
+    "xterm-addon-fit": "^0.6.0",
+    "xterm-theme": "^1.1.0"
   },
   "scripts": {
     "start": "react-app-rewired start",

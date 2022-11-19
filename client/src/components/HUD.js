@@ -8,6 +8,8 @@ function HUD({socket}) {
         const canvas = document.getElementById('hud');
         hud = new HeadsUpDisplay(canvas);
 
+        socket.emit("request_message_stream", ["ATTITUDE", "GLOBAL_POSITION_INT", "VFR_HUD"])
+
         hud.start();
 
         socket.on("ATTITUDE", packet => {
