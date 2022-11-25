@@ -5,7 +5,7 @@ export var config = {
     mode: "plane",
     theme: "light",
     plane: {
-        modes: ["MANUAL", "RTL", "STABILIZE", "TAKEOFF"]
+        modes: ["MANUAL", "RTL", "STABILIZE", "TAKEOFF", "LOITER", "AUTOTUNE"]
     }
 }
 

@@ -2,10 +2,10 @@ import {socket, connect} from "./socket"
 import VideoPlayer from "./components/VideoPlayer";
 import StatusBar from "./components/StatusBar";
 import { createTheme } from '@mui/material/styles';
-import TerminalWindow from "./components/TerminalWindow";
 import Sidebar from "./components/Sidebar";
 import HUD from "./components/HUD"
 import Floater from "./components/Floater";
+import SignalStrength from "./components/SignalStrength";
 
 import {config} from "./config"
 
@@ -61,6 +61,10 @@ function init() {
     setPilotMode("available")
     clearInterval(window.pilotHeartbeat)
   }
+
+  setTimeout(() => {
+    window.enablePilotMode()
+  }, 1000);
 }
 
 init()
@@ -72,7 +76,7 @@ function App() {
         <VideoPlayer socket={socket}></VideoPlayer>
         <HUD socket={socket}></HUD>
         <Floater socket={socket}></Floater>
-        <TerminalWindow socket={socket}></TerminalWindow>
+        <SignalStrength socket={socket}></SignalStrength>
         <Sidebar socket={socket}/>
       </div>
       <StatusBar socket={socket}/>
