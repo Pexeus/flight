@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {getMode} from "../../mav"
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,15 +11,19 @@ import FormControl from '@mui/material/FormControl';
 function ModeSelection({socket}) {
     const modes = config[window.mode].modes
     const [mode, SetMode] = useState("")
-
-    socket.emit("request_message_stream", ["HEARTBEAT"])
-
-    socket.on("HEARTBEAT", p => {
-        const currentMode = getMode(p.custom_mode)
-        SetMode(currentMode)
-    })
+    
+    useEffect(() => {
+        socket.emit("request_message_stream", ["HEARTBEAT"])
+    
+        socket.on("HEARTBEAT", p => {
+            const currentMode = getMode(p.custom_mode)
+            console.log(p.custom_mode);
+            SetMode(currentMode)
+        })
+    }, [])
 
     function updateMode(e) {
+        console.log("Setting mode to", e.target.value);
         const id = getMode(e.target.value)
 
         socket.emit("set_mode_send", id)

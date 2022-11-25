@@ -20,7 +20,6 @@ function Map2d({socket}) {
         });
 
         map.on('style.load', () => {
-            console.log("laod");
             map.setFog({}); // Set the default atmosphere style
         });
 
@@ -33,6 +32,7 @@ function Map2d({socket}) {
 
         //plane marker
         const marker = document.createElement("div")
+        marker.id = "pos"
 
         const root = ReactDOM.createRoot(marker)
         root.render(<NavigationIcon color='primary' fontSize='large'/>)
@@ -40,15 +40,17 @@ function Map2d({socket}) {
         const plane = new mapboxgl.Marker(marker).setLngLat([0, 0]).addTo(map);
 
         socket.on("GLOBAL_POSITION_INT", p => {
+            map.setBearing(p.hdg / 100)
+            map.setPitch(60)
+
             map.flyTo({
                 center: [p.lon / 10000000, p.lat / 10000000],
-                zoom: 16,
-                animate: false
+                zoom: 13,
+                animate: true
             })
 
             //plane marker
             plane.setLngLat([p.lon / 10000000, p.lat / 10000000])
-            plane.setRotation(p.hdg / 100)
         })
     }
 

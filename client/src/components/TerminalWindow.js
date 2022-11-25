@@ -6,7 +6,7 @@ import { MaterialDark } from 'xterm-theme';
 
 
 
-function TerminalWindow({socket}) {
+function TerminalWindow({socket, open}) {
     let term
     const fit = new FitAddon();
 
@@ -27,6 +27,7 @@ function TerminalWindow({socket}) {
         })
     
         term.onData(data => {
+            console.log(data);
             socket.emit("pty_in", data)
         })
     
@@ -48,7 +49,9 @@ function TerminalWindow({socket}) {
     }, [])
 
     return (
-        <div id='terminal' className='terminalContainer' onMouseEnter={resize}></div>
+        <div className={`terminalContainer ${open}`} onMouseEnter={resize}>
+            <div id='terminal'></div>
+        </div>
     )
 }
 
