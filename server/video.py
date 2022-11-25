@@ -12,7 +12,6 @@ class VideoStream():
 
     
     def proxy(self):
-
         while True:
             data = self.socket.recvfrom(8192)
             self.websocket.emit("video", data)

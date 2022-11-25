@@ -5,10 +5,10 @@ class Mav():
     def __init__(self, host):
         print("[mav] connecting:", host)
         connection = mavutil.mavlink_connection(host)
-        print("[mav] waiting for heartbeat")
-        connection.wait_heartbeat()
-        print("[mav] connected!")
 
+        #connection.wait_heartbeat()
+        #print("[mav] connected:", host)
+        
         # scuffed, change to short/long only
         self.con = connection
 
