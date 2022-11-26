@@ -20,6 +20,14 @@ class VideoStream():
         def video_bitrate_factorize(sid, factor):
             self.sio.emit("video_bitrate_factorize", factor)
 
+        @self.sio.event
+        def video_config_set(sid, data):
+            self.sio.emit("video_config_set", data)
+        
+        @self.sio.event
+        def video_config(sid, data):
+            self.sio.emit("video_config", data)
+
         while True:
             data = self.socket.recvfrom(8192)
             self.sio.emit("video", data[0])

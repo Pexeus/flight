@@ -49,7 +49,6 @@ class Mavhttp():
 
         @sio.event
         def rc_channel_override(sid, cmd):
-            print(cmd)
             mav.set_rc_channel_pwm(cmd["channel"], cmd["pmw"])
 
 
