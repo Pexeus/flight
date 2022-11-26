@@ -151,19 +151,25 @@ body {
   height: 75%;
 }
 
-.infoPanel,
-.actionPanel {
-  height: 12.5%;
+.infoPanel {
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  font-size: larger;
+}
+
+.infoPanel .line {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-size: larger;
-  padding-left: 4px;
+  width: 100%;
 }
 
-.infoPanel div,
-.actionPanel div {
-  margin-right: 4px;
+
+.line > div {
+  margin-left: 4px;
 }
 
 .signalFloater {

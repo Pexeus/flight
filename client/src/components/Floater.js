@@ -12,7 +12,6 @@ function Floater({ socket }) {
       <Paper sx={{height: "100%", width: "100%"}} elevation={3}>
         <Map2d socket={socket}></Map2d>
         <InfoPanel socket={socket}/>
-        <ActionPanel socket={socket}></ActionPanel>
       </Paper>
     </div>
   )
