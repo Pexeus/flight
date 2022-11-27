@@ -31,14 +31,14 @@ function VideoPlayer({ socket }) {
         })
 
         setInterval(() => {
-            stats.fps = stats.frames * 10
+            stats.fps = stats.frames * 2
             stats.frames = 0
 
             document.querySelector("#displayOverlay").innerHTML = `
                 FPS: ${stats.fps} <br>
                 Bitrate: ${stats.rate}
             `
-        }, 100);
+        }, 500);
     }
 
     useEffect(() => {

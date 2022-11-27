@@ -4,8 +4,6 @@ import gamepads from '../gamepads'
 
 function Gamepad({ socket }) {
     const [gp, setGP] = useState(false)
-    let currentValues = {}
-    let qualityTimeout = false
 
     function init() {
         console.log("waiting for gamepad");
@@ -21,7 +19,7 @@ function Gamepad({ socket }) {
     async function updateControls() {
         const gamepad = navigator.getGamepads()[0];
         const updater = gamepads[gamepad.id]
-        console.log(gamepad);
+        console.log(updater);
         
         setInterval(() => {
             const gamepad = navigator.getGamepads()[0];

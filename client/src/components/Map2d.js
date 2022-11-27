@@ -45,7 +45,7 @@ function Map2d({socket}) {
 
             map.flyTo({
                 center: [p.lon / 10000000, p.lat / 10000000],
-                zoom: 13,
+                zoom: 15,
                 animate: true
             })
 
