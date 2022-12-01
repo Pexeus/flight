@@ -45,8 +45,6 @@ function init() {
     }
 
       setTimeout(() => {
-        console.log(Date.now() - lastHeartbeat);
-
         if (Date.now() - lastHeartbeat > 1000 && window.pilotMode == "unavailable") {
           window.setPilotMode("available")
         }
@@ -65,7 +63,6 @@ function init() {
     if (window.pilotMode == "available") {
       window.setPilotMode("enabled")
       window.pilotHeartbeat = setInterval(() => {
-        console.log("<3");
         socket.emit("pilot_heartbeat", Date.now())
       }, 500)
 
