@@ -20,12 +20,15 @@ function ps4Controller(gamepad, socket) {
             enableTimeout()
         }
         
+        const thrust = 1100 + ((gamepad.buttons[7].value)).toFixed(2) * 800
+
+
         //controls
         const values = {
             roll: gamepad.axes[2].toFixed(1) * 1000,
             pitch: gamepad.axes[3].toFixed(1) * -1000,
             yaw: gamepad.axes[0].toFixed(1) * -1000,
-            thrust: ((gamepad.buttons[7].value + 1) / 2).toFixed(2) * 1000
+            thrust: thrust
         }
 
         if (JSON.stringify(values) != JSON.stringify(currentValues)) {
