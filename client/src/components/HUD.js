@@ -9,6 +9,7 @@ function HUD({socket}) {
         hud = new HeadsUpDisplay(canvas);
 
         socket.emit("request_message_stream", ["ATTITUDE", "GLOBAL_POSITION_INT", "VFR_HUD"])
+        //socket.emit("set_message_interval", [{id: 30, interval: 1000}, {id: 74, interval: 1000}, {id: 33, interval: 1000}])
 
         hud.start();
 

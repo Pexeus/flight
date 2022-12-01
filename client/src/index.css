@@ -93,13 +93,13 @@ body {
 
 .terminalContainer {
   position: fixed;
-  top: 5vh;
+  top: 10vh;
   left: 300px;
   width: calc(100vw - 330px);
-  height: 90vh;
+  height: 80vh;
   visibility: hidden;
   opacity: 0;
-  transition: all ease-in-out 1s;
+  transition: all ease-in-out .2s;
   border-radius: 4px;
   padding: 4px;
   background-color: #232322;
@@ -108,7 +108,7 @@ body {
 .terminalContainer.true {
   position: fixed;
   visibility: visible;
-  opacity: 1;
+  opacity: .7;
 }
 
 #terminal {
