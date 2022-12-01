@@ -20,7 +20,7 @@ function ps4Controller(gamepad, socket) {
             enableTimeout()
         }
         
-        const thrust = 1100 + ((gamepad.buttons[7].value)).toFixed(2) * 800
+        const thrust = ((gamepad.buttons[7].value)).toFixed(2) * 900
 
 
         //controls
@@ -33,6 +33,7 @@ function ps4Controller(gamepad, socket) {
 
         if (JSON.stringify(values) != JSON.stringify(currentValues)) {
             if (window.pilotMode == "enabled") {
+                console.log(values);
                 socket.emit("manual_control_send", values)
             }
 
