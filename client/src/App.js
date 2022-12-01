@@ -6,6 +6,7 @@ import Sidebar from "./components/Sidebar";
 import HUD from "./components/HUD"
 import Floater from "./components/Floater";
 import SignalStrength from "./components/SignalStrength";
+import Alerts from "./components/Alerts"
 
 import {config} from "./config"
 
@@ -13,8 +14,13 @@ function init() {
   //connect to server
   connect(config.host)
 
+  console.log("APP INIT");
+
   //create event
   const event = new Event('pilotModeUpdate');
+
+  //keep track of last heartbear
+  let lastHeartbeat = Date.now()
 
   //setup window scope vars
   window.mode = config.mode
@@ -32,9 +38,19 @@ function init() {
 
   //check if there are any other pilots connected
   socket.on("pilot_heartbeat", data => {
+    lastHeartbeat = Date.now()
+
     if (window.pilotMode != "enabled") {
       window.setPilotMode("unavailable")
     }
+
+      setTimeout(() => {
+        console.log(Date.now() - lastHeartbeat);
+
+        if (Date.now() - lastHeartbeat > 1000 && window.pilotMode == "unavailable") {
+          window.setPilotMode("available")
+        }
+      }, 2000);
   })
 
   //if not, make pilot mode available
@@ -48,7 +64,10 @@ function init() {
   window.enablePilotMode = () => {
     if (window.pilotMode == "available") {
       window.setPilotMode("enabled")
-      window.pilotHeartbeat = setInterval(() => {socket.emit("pilot_heartbeat", Date.now())}, 500)
+      window.pilotHeartbeat = setInterval(() => {
+        console.log("<3");
+        socket.emit("pilot_heartbeat", Date.now())
+      }, 500)
 
       return true
     }
@@ -78,6 +97,7 @@ function App() {
         <Floater socket={socket}></Floater>
         <SignalStrength socket={socket}></SignalStrength>
         <Sidebar socket={socket}/>
+        <Alerts></Alerts>
       </div>
       <StatusBar socket={socket}/>
     </div>

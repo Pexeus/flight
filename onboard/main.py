@@ -1,12 +1,19 @@
 import socketio
 import json
 import time
+import signal
+import sys
+import os
+import threading
+import subprocess
+
 
 import terminal
 from stream import Stream
 from router import Router
 from mav import Mav
 from pilot import Pilot
+from stick import Stick
 
 
 def connect(config):
@@ -39,22 +46,35 @@ def connect(config):
             #print(e)
     
     return sio
-        
+
+def signal_handler(sig, frame):
+    print("[main] exiting...")
+
+    process = subprocess.Popen("sudo pkill raspivid", shell=True, stdout=subprocess.PIPE)
+    process.wait()
+
+    os.system("sudo pkill python")
+
+    sys.exit(0)
+
 def init():
     config = json.load(open("/home/pi/code/GroundControl/onboard/config.json"))
-
     sio = connect(config)
-    router = Router(config, sio)
 
-    mav = Mav("127.0.0.1:14550")
-
-    pilot = Pilot(mav, sio)
+    stick = Stick(sio)
     stream = Stream(config, sio)
+    router = Router(config, sio)
+    mav = Mav("127.0.0.1:14550")
+    pilot = Pilot(mav, sio)
     terminal.main(sio)
+    
+    print("startup complete")
 
+    #kysThread = threading.Thread(target=kys)
+    #kysThread.start()
 
-    while True:
-        #sio.emit("pty_out",  {"output": "output"})
-        sio.sleep(0.1)
+    #wait for kill signal
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.pause()
 
 init()

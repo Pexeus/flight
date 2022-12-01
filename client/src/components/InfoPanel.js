@@ -38,7 +38,7 @@ function InfoPanel({ socket }) {
         })
 
         socket.on("VFR_HUD", packet => {
-            setSpeed(packet.groundspeed)
+            setSpeed(packet.groundspeed * 3.6)
             setAlt(packet.alt)
         })
     }
@@ -60,7 +60,7 @@ function InfoPanel({ socket }) {
                     : <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`loading...`}/>
                 }
                 {speed != null
-                    ? <Chip variant='outlined' icon={<SpeedIcon/>} label={`${speed.toFixed(2)}m/s`}/>
+                    ? <Chip variant='outlined' icon={<SpeedIcon/>} label={`${speed.toFixed(2)}km/h`}/>
                     : <Chip variant='outlined' icon={<SpeedIcon/>} label={`loading...`}/>
                 }
                 {alt != null
