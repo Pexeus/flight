@@ -16,7 +16,7 @@ app = socketio.WSGIApp(sio, static_files={"/": "../client/build/", "/models/cess
 
 @sio.event
 def connect(sid, environ):
-    print('[io] client: ', environ["HTTP_USER_AGENT"].split()[0])
+    print('[io] client: ', environ["HTTP_USER_AGENT"])
 
 #connection watcher
 @sio.event

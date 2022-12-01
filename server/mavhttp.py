@@ -28,7 +28,6 @@ class Mavhttp():
 
         @sio.event
         def manual_control_send(sid, inputs):
-            print(inputs)
             try:
                 mav.con.mav.manual_control_send(
                 mav.con.target_system,
@@ -49,7 +48,7 @@ class Mavhttp():
 
         @sio.event
         def rc_channel_override(sid, cmd):
-            mav.set_rc_channel_pwm(cmd["channel"], cmd["pmw"])
+            mav.set_rc_channel_pwm(cmd["channel"], cmd["pwm"])
 
 
         @sio.event
@@ -72,15 +71,15 @@ class Mavhttp():
                     state, 0, 0, 0, 0, 0, 0)
 
         @sio.event
-        def set_message_interval(sid, attributes):
-            for attribute in attributes:
+        def set_message_interval(sid, messages):
+            for message in messages:
                 mav.con.mav.command_long_send(
                 mav.con.target_system,
                 mav.con.target_component,
                 mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL,
                 0,
-                attribute,
-                100,
+                message["id"],
+                message["interval"],
                 0,
                 0,
                 0,

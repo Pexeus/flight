@@ -17,6 +17,14 @@ class VideoStream():
             self.sio.emit("latency", latency)
 
         @self.sio.event
+        def camera_zoom(sid, zoom):
+            self.sio.emit("camera_zoom", zoom)
+
+        @self.sio.event
+        def camera_still(sid, data):
+            self.sio.emit("camera_still", data)
+
+        @self.sio.event
         def video_bitrate_factorize(sid, factor):
             self.sio.emit("video_bitrate_factorize", factor)
 
