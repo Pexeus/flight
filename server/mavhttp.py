@@ -1,6 +1,9 @@
 from pymavlink import mavutil
 import time
 import eventlet
+from converter import Converter
+
+to = Converter()
 
 eventlet.monkey_patch()
 
@@ -28,29 +31,29 @@ class Mavhttp():
             try:
                 mav.con.mav.manual_control_send(
                 mav.con.target_system,
-                inputs["pitch"] * 1000,
-                inputs["roll"] * 1000,
-                inputs["thrust"] * 1000,
-                inputs["yaw"] * 1000,
+                inputs["pitch"],
+                inputs["roll"],
+                inputs["thrust"],
+                inputs["yaw"],
                 0)
             except Exception as e:
                 print(e)
 
         @sio.event
         def rc_channels_override(sid, inputs):
-            print(inputs)
-            mav.set_rc_channel_pwm(1, to.pmw(inputs["yaw"]))
+            mav.set_rc_channel_pwm(1, to.pmw(inputs["roll"]))
+            mav.set_rc_channel_pwm(2, to.pmw(inputs["pitch"]))
             mav.set_rc_channel_pwm(3, to.pmw(inputs["thrust"]))
-            mav.set_rc_channel_pwm(4, to.pmw(inputs["pitch"]))
-            mav.set_rc_channel_pwm(5, to.pmw(inputs["roll"]))
+            mav.set_rc_channel_pwm(4, to.pmw(inputs["yaw"]))
+
+        @sio.event
+        def rc_channel_override(sid, cmd):
+            mav.set_rc_channel_pwm(cmd["channel"], cmd["pwm"])
+
 
         @sio.event
         def set_mode_send(sid, mode_id):
-            mav.con.mav.set_mode_send(
-                    mav.con.target_system,
-                    mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,
-                    mode_id
-                )
+            mav.con.set_mode(mode_id)
 
         @sio.event
         def get_status_armed(sid):
@@ -68,15 +71,15 @@ class Mavhttp():
                     state, 0, 0, 0, 0, 0, 0)
 
         @sio.event
-        def set_message_interval(sid, attributes):
-            for attribute in attributes:
+        def set_message_interval(sid, messages):
+            for message in messages:
                 mav.con.mav.command_long_send(
                 mav.con.target_system,
                 mav.con.target_component,
                 mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL,
                 0,
-                attribute,
-                100,
+                message["id"],
+                message["interval"],
                 0,
                 0,
                 0,
