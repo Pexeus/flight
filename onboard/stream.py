@@ -18,6 +18,7 @@ class Stream():
         self.baseLatency = self.ping_avg(self.host_ip, 8, 0)
         self.streaming = True
         self.autoBitrate = False
+        self.zoom = ""
 
         streamThread = threading.Thread(target=self.stream)
         streamThread.start()
@@ -42,15 +43,22 @@ class Stream():
             sio.emit("video_config", self.config)
 
         @sio.event
+        def camera_zoom(zoom):
+            print(f"--roi {0.5 - (zoom/2)},{0.5 - (zoom/2)}, {zoom}, {zoom}")
+            self.kill()
+            self.zoom = f"--roi {0.5 - (zoom/2)},{0.5 - (zoom/2)},{zoom},{zoom}"
+            self.start()
+
+        @sio.event
         def camera_still(options):
             print(options)
             self.kill()
-            o = os.popen("raspistill -o ./data/{}.jpg --nopreview --exposure sports --timeout 1000".format(time.time())).read()
+            o = os.popen(f"raspistill -o ./data/{time.time()}.jpg --nopreview --exposure sports --timeout 1000 {self.zoom}").read()
             self.start()
 
     
     def start(self):
-        cmd = f"raspivid -n -w {self.config['width']}, -h {self.config['height']}  -t 0 -fps {self.config['fps']} -ih -b {self.config['bitrate']} -pf baseline -awbg 1.0,2.5 -ex fixedfps -ev 0 -co 50 -br {self.config['brightness']} -o - | socat - udp-sendto:{self.host},shut-none"
+        cmd = f"raspivid {self.zoom} -n -w {self.config['width']}, -h {self.config['height']}  -t 0 -fps {self.config['fps']} -ih -b {self.config['bitrate']} -pf baseline -rot 180 -awbg 1.0,2.5 -ex fixedfps -ev 0 -co 50 -br {self.config['brightness']} -o - | tee my_video.h264 | socat - udp-sendto:{self.host},shut-none"
         self.streamer = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid, stderr=subprocess.PIPE)
 
     def autorestart(self):
@@ -71,7 +79,7 @@ class Stream():
         while self.streaming:
             latency = self.ping_avg(self.host_ip, 8, 0.2)
 
-            print("[streamer] current latency: {}ms base latency:{}ms".format(self.baseLatency, latency))
+            #print("[streamer] current latency: {}ms base latency:{}ms".format(self.baseLatency, latency))
             
             try:
                 self.sio.emit("latency", latency)

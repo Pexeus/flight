@@ -18,7 +18,7 @@ class Router():
         time.sleep(2)
 
     def proxy(self):
-        process = Popen(["mavlink-routerd", "-e", "127.0.0.1:14550", "-e", f"{self.config['host_mav']}", "/dev/serial0:57600"], stdout=PIPE, stderr=PIPE)    
+        process = Popen(["mavlink-routerd", "-e", "127.0.0.1:14550", "-e", "192.168.178.31:14550", "-e", f"{self.config['host_mav']}", "/dev/serial0:57600"], stdout=PIPE, stderr=PIPE)    
 
         # disabled due to possible performance problems
         while True:
