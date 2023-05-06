@@ -13,7 +13,6 @@ from mavhttp import Mavhttp
 sio = socketio.Server(cors_allowed_origins="*", ping_timeout=1200)
 app = socketio.WSGIApp(sio, static_files={"/": "../client/build/", "/models/cessna": "./files/cessna"})
 
-
 @sio.event
 def connect(sid, environ):
     print('[io] client: ', environ["HTTP_USER_AGENT"])

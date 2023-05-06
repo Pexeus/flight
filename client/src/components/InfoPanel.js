@@ -55,10 +55,6 @@ function InfoPanel({ socket }) {
                     ? <Chip variant='outlined' icon={<AirplanemodeActiveIcon/>} label={`${getMode(heartBeat.custom_mode)}`}/>
                     : <Chip variant='outlined' icon={<AirplanemodeActiveIcon/>} label={`loading...`}/>
                 }
-                {battery.voltages
-                    ? <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`${(battery.voltages[0] / 1000).toFixed(2)}V`}/>
-                    : <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`loading...`}/>
-                }
                 {speed != null
                     ? <Chip variant='outlined' icon={<SpeedIcon/>} label={`${speed.toFixed(2)}km/h`}/>
                     : <Chip variant='outlined' icon={<SpeedIcon/>} label={`loading...`}/>
@@ -73,6 +69,10 @@ function InfoPanel({ socket }) {
                 {latency
                     ? <Chip variant='outlined' icon={<ScheduleIcon/>} label={`${latency}ms`}/>
                     : <Chip variant='outlined' icon={<ScheduleIcon/>} label={`loading...`}/>
+                }
+                {battery.voltages
+                    ? <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`${(battery.voltages[0] / 1000).toFixed(2)}V`}/>
+                    : <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`loading...`}/>
                 }
             </div>
         </div>
