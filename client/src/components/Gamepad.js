@@ -1,4 +1,5 @@
-import { getOptionGroupUnstyledUtilityClass } from '@mui/base'
+import VideogameAssetOffIcon from '@mui/icons-material/VideogameAssetOff';
+import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import React, { useEffect, useState } from 'react'
 import gamepads from '../gamepads'
 
@@ -32,11 +33,15 @@ function Gamepad({ socket }) {
     }, [])
 
     return (
-        <div>
+        <div className='gamepadStatusBar'>
             {gp ? (
-                <p>Gamepad: {gp}</p>
+                
+                <div className='gamepadName'>
+                    <VideogameAssetIcon fontSize='small'></VideogameAssetIcon>
+                    <p>{gp}</p>
+                </div>
             ) : (
-                <p>No Gamepad Connected</p>
+                <VideogameAssetOffIcon fontSize='small'></VideogameAssetOffIcon>
             )}
         </div>
     )

@@ -5,7 +5,8 @@ export var config = {
     mode: "plane",
     theme: "light",
     plane: {
-        modes: ["MANUAL", "RTL", "STABILIZE", "TAKEOFF", "LOITER", "AUTOTUNE"]
+        modes: ["MANUAL", "RTL", "STABILIZE", "TAKEOFF", "LOITER", "AUTOTUNE"],
+        battery: {cells: 2}
     }
 }
 
