@@ -1,14 +1,28 @@
 import React from 'react'
 import Gamepad from "./Gamepad"
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import ViewSidebarIcon from '@mui/icons-material/ViewSidebar';
+import MovieIcon from '@mui/icons-material/Movie';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import ControlCameraIcon from '@mui/icons-material/ControlCamera';
 
-function StatusBar({socket}) {
+function StatusBar({ socket }) {
     return (
         <div className='statusBar' style={{ backgroundColor: window.theme.palette.primary["main"] }}>
-            <div onClick={() => {window.toggleSidebar()}} style={{ backgroundColor: window.theme.palette.success["main"] }} className="toggleSidebar">
-                <SettingsOutlinedIcon fontSize='small'></SettingsOutlinedIcon>
+            <div className='left'>
+                <div onClick={() => { window.toggleSidebar() }} style={{ backgroundColor: window.theme.palette.success["main"] }} className="statusBarButton">
+                    <ViewSidebarIcon fontSize='small'></ViewSidebarIcon>
+                </div>
+                <div className='statusBarButton'>
+                    <ControlCameraIcon fontSize='small'></ControlCameraIcon>
+                </div>
+                <div className='statusBarButton'>
+                    <NearMeIcon fontSize='small'></NearMeIcon>
+                </div>
+                <div className='statusBarButton'>
+                    <MovieIcon fontSize='small'></MovieIcon>
+                </div>
             </div>
-            <Gamepad socket={socket}/>
+            <Gamepad socket={socket} />
         </div>
     )
 }

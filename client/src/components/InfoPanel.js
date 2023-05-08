@@ -8,6 +8,8 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import HeightIcon from '@mui/icons-material/Height';
 import TakeControl from './TakeControl'
+import { config } from '../config';
+import { getCapacity } from '../battery';
 
 
 
@@ -53,26 +55,26 @@ function InfoPanel({ socket }) {
             <div className='line'>
                 {heartBeat.custom_mode != undefined
                     ? <Chip variant='outlined' icon={<AirplanemodeActiveIcon/>} label={`${getMode(heartBeat.custom_mode)}`}/>
-                    : <Chip variant='outlined' icon={<AirplanemodeActiveIcon/>} label={`loading...`}/>
+                    : <Chip variant='outlined' icon={<AirplanemodeActiveIcon/>} label={`⚠️`}/>
                 }
                 {speed != null
                     ? <Chip variant='outlined' icon={<SpeedIcon/>} label={`${speed.toFixed(2)}km/h`}/>
-                    : <Chip variant='outlined' icon={<SpeedIcon/>} label={`loading...`}/>
+                    : <Chip variant='outlined' icon={<SpeedIcon/>} label={`⚠️`}/>
                 }
                 {alt != null
                     ? <Chip variant='outlined' icon={<HeightIcon/>} label={`${alt.toFixed(2)}m`}/>
-                    : <Chip variant='outlined' icon={<HeightIcon/>} label={`loading...`}/>
+                    : <Chip variant='outlined' icon={<HeightIcon/>} label={`⚠️`}/>
                 }
             </div>
             <div className='line'>
                 <TakeControl socket={socket}></TakeControl>
                 {latency
                     ? <Chip variant='outlined' icon={<ScheduleIcon/>} label={`${latency}ms`}/>
-                    : <Chip variant='outlined' icon={<ScheduleIcon/>} label={`loading...`}/>
+                    : <Chip variant='outlined' icon={<ScheduleIcon/>} label={`⚠️`}/>
                 }
                 {battery.voltages
-                    ? <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`${(battery.voltages[0] / 1000).toFixed(2)}V`}/>
-                    : <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`loading...`}/>
+                    ? <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`${(battery.voltages[0] / 1000).toFixed(2)}V | ${getCapacity(config.plane.battery.cells, battery.voltages[0])}%`}/>
+                    : <Chip variant='outlined' icon={<BatteryFullIcon/>} label={`⚠️`}/>
                 }
             </div>
         </div>

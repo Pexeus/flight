@@ -39,8 +39,8 @@ export class HeadsUpDisplay {
 		this.settings.pixelPerDeg = 12;
 
 		this.style = {
-			lineWidth: 2,
-			color: 'rgba(0, 255, 127, 1)',
+			lineWidth: 3,
+			color: 'rgba(255, 255, 255, 1)',
 			font: {
 				style: 'normal',
 				variant: 'normal',
@@ -50,11 +50,11 @@ export class HeadsUpDisplay {
 			},
 			hasShadow: true,
 			shadow: {
-				lineWidth: 2.5,
+				lineWidth: 3.5,
 				color: 'rgba(0, 0, 0, 0.6)',
-				offset: 1.8,
+				offset: 2,
 			},
-			scale: 1, // ui scale
+			scale: 0.8, // ui scale
 			stepWidth: 8,
 		};
 

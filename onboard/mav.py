@@ -13,6 +13,24 @@ class Mav():
         # scuffed, change to short/long only
         self.con = connection
 
+    def setIntervals(self, messages):
+        print(messages)
+        for message in messages:
+            print(message)
+            
+            self.con.mav.command_long_send(self.con.target_system, self.con.target_component, mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL,
+            0,
+            message["id"],
+            message["interval"],
+            0,
+            0,
+            0,
+            0,
+            0,
+            )
+        
+        return True
+
     def arm(self):
         print("[mav] arming...")
 

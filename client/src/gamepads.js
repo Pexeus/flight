@@ -104,11 +104,60 @@ function ps4Controller(gamepad, socket) {
     }
 }
 
+function attack3(gamepad, socket) {
+    if (gamepad == undefined) {
+        return
+    }
+
+    //panic mode
+    if (gamepad.buttons[1].pressed && gamepad.buttons[2].pressed && window.pilotMode == "enabled") {
+        window.disablePilotMode()
+        window.alert("Panic Mode: Disabling Control", "warning", 3000)
+        enableTimeout()
+    }
+
+    //thrust
+    const thrust = (0.5 + (gamepad.axes[2].toFixed(1) * -1 / 2)) * 900
+    
+    //controls
+    const values = {
+        roll: Math.round(gamepad.axes[0].toFixed(1) * 1000),
+        pitch: Math.round(gamepad.axes[1].toFixed(1) * -1000),
+        yaw: 0,
+        thrust: Math.round(thrust)
+    }
+
+    //set video quality
+    if (!qualityTimeout) {
+        if (gamepad.buttons[5].pressed) {
+            socket.emit("video_bitrate_factorize", 1.2)
+            window.alert("Updating Video Quality", "info", 3000)
+            enableTimeout()
+        }
+        if (gamepad.buttons[6].pressed) {
+            socket.emit("video_bitrate_factorize", 0.8)
+            window.alert("Updating Video Quality", "info", 3000)
+            enableTimeout()
+        }
+    }
+
+    if (JSON.stringify(values) != JSON.stringify(currentValues)) {
+        if (window.pilotMode == "enabled") {
+            socket.emit("manual_control_send", values)
+        }
+
+        currentValues = values
+    }
+}
+
 export default {
     "Wireless Controller (STANDARD GAMEPAD Vendor: 054c Product: 09cc)": (gamepad, socket) => {
         ps4Controller(gamepad, socket)
     },
     "DUALSHOCK 4 Wireless Controller (STANDARD GAMEPAD Vendor: 054c Product: 09cc)": (gamepad, socket) => {
         ps4Controller(gamepad, socket)
+    },
+    "Logitech Attack 3 (Vendor: 046d Product: c214)": (gamepad, socket ) => {
+        attack3(gamepad, socket)
     }
 }
