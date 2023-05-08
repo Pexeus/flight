@@ -58,7 +58,7 @@ def signal_handler(sig, frame):
     sys.exit(0)
 
 def init():
-    config = json.load(open("/home/pi/code/GroundControl/onboard/config.json"))
+    config = json.load(open("/home/pi/GroundControl/onboard/config.json"))
     sio = connect(config)
 
     stick = Stick(sio)
@@ -67,6 +67,12 @@ def init():
     mav = Mav("127.0.0.1:14550")
     pilot = Pilot(mav, sio)
     terminal.main(sio)
+
+    mav.setIntervals([
+        {"id": 30,"interval": 100},
+        {"id": 74,"interval": 100},
+        {"id": 33,"interval": 100}
+        ])
     
     print("startup complete")
 
