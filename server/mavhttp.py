@@ -28,6 +28,7 @@ class Mavhttp():
 
         @sio.event
         def manual_control_send(sid, inputs):
+            print(inputs)
             try:
                 mav.con.mav.manual_control_send(
                 mav.con.target_system,
