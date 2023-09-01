@@ -33,7 +33,6 @@ function ps4Controller(gamepad, socket) {
 
         if (JSON.stringify(values) != JSON.stringify(currentValues)) {
             if (window.pilotMode == "enabled") {
-                console.log(values);
                 socket.emit("manual_control_send", values)
             }
 
@@ -69,20 +68,6 @@ function ps4Controller(gamepad, socket) {
                 window.alert("Taking Picture...", "info", 3000)
 
                 socket.emit("camera_still", {width: 1920, height: 1080})
-                enableTimeout()
-            }
-        }
-        
-        //set video quality
-        if (!qualityTimeout) {
-            if (gamepad.buttons[12].pressed) {
-                socket.emit("video_bitrate_factorize", 1.2)
-                window.alert("Updating Video Quality", "info", 3000)
-                enableTimeout()
-            }
-            if (gamepad.buttons[13].pressed) {
-                socket.emit("video_bitrate_factorize", 0.8)
-                window.alert("Updating Video Quality", "info", 3000)
                 enableTimeout()
             }
         }
@@ -155,6 +140,9 @@ export default {
         ps4Controller(gamepad, socket)
     },
     "DUALSHOCK 4 Wireless Controller (STANDARD GAMEPAD Vendor: 054c Product: 09cc)": (gamepad, socket) => {
+        ps4Controller(gamepad, socket)
+    },
+    "054c-09cc-Wireless Controller": (gamepad, socket) => {
         ps4Controller(gamepad, socket)
     },
     "Logitech Attack 3 (Vendor: 046d Product: c214)": (gamepad, socket ) => {

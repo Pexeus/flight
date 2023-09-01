@@ -20,6 +20,7 @@ function Gamepad({ socket }) {
     async function updateControls() {
         const gamepad = navigator.getGamepads()[0];
         const updater = gamepads[gamepad.id]
+        console.log(gamepad.id);
         console.log(updater);
         
         setInterval(() => {

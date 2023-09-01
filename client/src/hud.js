@@ -40,7 +40,7 @@ export class HeadsUpDisplay {
 
 		this.style = {
 			lineWidth: 3,
-			color: 'rgba(255, 255, 255, 1)',
+			color: 'rgba(0, 220, 100, 1)',
 			font: {
 				style: 'normal',
 				variant: 'normal',
@@ -54,7 +54,7 @@ export class HeadsUpDisplay {
 				color: 'rgba(0, 0, 0, 0.6)',
 				offset: 2,
 			},
-			scale: 0.8, // ui scale
+			scale: 0.9, // ui scale
 			stepWidth: 8,
 		};
 

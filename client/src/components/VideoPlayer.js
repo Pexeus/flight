@@ -35,8 +35,7 @@ function VideoPlayer({ socket }) {
             stats.frames = 0
 
             document.querySelector("#displayOverlay").innerHTML = `
-                FPS: ${stats.fps} <br>
-                Bitrate: ${stats.rate}
+                ${stats.fps}FPS
             `
         }, 500);
     }
