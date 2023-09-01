@@ -9,7 +9,6 @@ class VideoStream():
 
         self.reciever = threading.Thread(target=self.proxy)
         self.reciever.start()
-
     
     def proxy(self):
         @self.sio.event
@@ -25,16 +24,13 @@ class VideoStream():
             self.sio.emit("camera_still", data)
 
         @self.sio.event
-        def video_bitrate_factorize(sid, factor):
-            self.sio.emit("video_bitrate_factorize", factor)
-
-        @self.sio.event
         def video_config_set(sid, data):
             self.sio.emit("video_config_set", data)
-        
+
         @self.sio.event
-        def video_config(sid, data):
-            self.sio.emit("video_config", data)
+        def video_config_current(sid, data):
+            print(data)  
+            self.sio.emit("video_config_current", data)
 
         while True:
             data = self.socket.recvfrom(8192)
