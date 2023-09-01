@@ -52,6 +52,19 @@ def pilot_heartbeat(sid, environ):
 def lte_status(sid, environ):
     sio.emit("lte_status", environ)
 
+#system telemetry
+@sio.event
+def cpu_temp(sid, environ):
+    sio.emit("cpu_temp", environ)
+
+@sio.event
+def cpu_usage(sid, environ):
+    sio.emit("cpu_usage", environ)
+
+@sio.event
+def ram_usage(sid, environ):
+    sio.emit("ram_usage", environ)
+
 mav = Mav("0.0.0.0:14550")
 videoStream = VideoStream(("0.0.0.0", 2000), sio)
 
